@@ -1,0 +1,28 @@
+Strings++ Documentation
+Claire McKenna and Ben Withnell, 2013
+
+#Basic Overview
+	For a given file, Strings++ will analyze the contents for strings and produce an organized output of identified IP addresses, Domain Names, MD5 sums, email addresses, and common Windows Function names. More options for matching may be available in later updates. 
+
+	Strings++ will display output organized by category and display the number of times each entry appeared in the given file. 
+
+#Example Output:
+	File: Filename.example
+	------------------------------------------
+	IP Addresses:
+	1.2.3.4 (4)
+	2.2.2.2
+	1.1.1.1
+	------------------------------------------
+	Domains:
+	www.evil.com
+	www.google.com (2)
+	------------------------------------------
+
+#Usage
+	[To Be Determined]
+
+#Options
+	Custom RegEx
+	Show only particular output
+	
