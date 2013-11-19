@@ -5,6 +5,7 @@
 import sys
 import string
 import re
+from IPy import IP
 
 #define input file as ifile
 ifile=''
@@ -24,7 +25,6 @@ ifile = sys.argv[1]
 def strings(filename, min=4):
         #Open filename (which will be passed as cli arg)
     with open(filename, "rb") as f:
-        print f.name
         result = ''
         for c in f.read():
             if c in string.printable:
@@ -35,21 +35,55 @@ def strings(filename, min=4):
             result = ""
 #Store all the strings found in file in a list. Filename will be from cli arg eventually
 sl = list(strings(ifile))
+matchedIPs = [ ]
+privateIPs = [ ]
+
+#Define and compile regular expressions
+md5Regex = re.compile(r"([a-fA-F\d]{32})")
+ipRegex = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+#privateIPregex = re.compile("(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)")
 #Loop through each value in the list sl
 for x in sl:
-    #Compile IP regex into an object
-    #TODO: Make "findall" work with IP addresses as well. Right now it's not properly detecting
-    ip = re.compile('(([2][5][0-5]\.)|([2][0-4][0-9]\.)|([0-1]?[0-9]?[0-9]\.)){3}'
-                +'(([2][5][0-5])|([2][0-4][0-9])|([0-1]?[0-9]?[0-9]))')
     #Use the regex for md5s to find all the MD5s in x
     #TODO: Addin more regexes
-    md5 = re.findall(r"([a-fA-F\d]{32})", x)
-    #Print all the matching MD5s
-    #TODO: Only print md5 if array !=0
-    print md5
-    #Seach X for matches to the IP regex
-    match = ip.search(x)
-    #If a match is found, print the match
-    if match:
-        print match.group()
+    md5 = re.findall(md5Regex, x)
+    #Seach X for all matches to the IP regex and store in the list matchedIPs
+    matchedIPs = re.findall(ipRegex, x)
+
+#If the matchedIPs list is not empty, print all of the items in the list
+if matchedIPs:
+    print "Possible IP Addresses Found:"
+    #Print out IP address results        
+    for item in matchedIPs:
+        #Use the IP module to check IP address type (PRIVATE, PUBLIC or LOOPBACK)
+        ip = IP(item)
+        #If the IP is identified as a private IP address, append the IP to the privateIPs list
+        if ip.iptype() == 'PRIVATE':
+            privateIPs.append(item)
+        #If the IP is not a private IP address, print the address as part of the IP Address section
+        else:
+            print item
+#If the matchedIPs list is empty, print the string below
+if not matchedIPs:
+    print "No IP Addresses Found."
+#If any privateIP addresses were found, print them out under the Private IP Addresses header
+#Do we want to separate out the IP addresses like this, or do we want to just list them under one category and put (PRIVATE) next to each address? 
+#If we did this we could even use iptype() to display the type (PUBLIC, PRIVATE or LOOPBACK) next to all IPs
+if privateIPs:
+    print "Private IP Addresses:"
+    for item in privateIPs:
+        print item
+
+#If the md5 list is not empty, print all the items in the list
+if md5:
+    #Print the header first then each item (MD5sum) in the list md5. Prints each one on a new line
+    print "\nPossible MD5s Found:"
+    for item in md5:
+        print item
+#If the md5 list is empty, print the string below
+if not md5:
+    print "\nNo MD5s Found"
+
+
+    
     
