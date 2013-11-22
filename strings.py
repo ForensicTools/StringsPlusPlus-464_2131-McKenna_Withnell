@@ -38,12 +38,14 @@ def strings(filename, min=4):
 sl = list(strings(ifile))
 matchedIPs = [ ]
 privateIPs = [ ]
-extracted = [ ]
+matchDomain = [ ]
+emailAddr = [ ]
 
 #Define and compile regular expressions
 md5Regex = re.compile(r"([a-fA-F\d]{32})")
 ipRegex = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
 domain = re.compile(r'[\w\-\.]+\.(?:com|org|biz|net|ru|info|es|in|biz|nl|cn)')
+email = re.compile(r'([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)')
 
 #privateIPregex = re.compile("(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)")
 #Loop through each value in the list sl
@@ -55,6 +57,8 @@ for x in sl:
     matchedIPs = re.findall(ipRegex, x)
     #Extract domains from x
     matchDomain = re.findall(domain, x) 
+    #Extract all email addresses found in x
+    emailAddr = re.findall(email, x)
 
 #If the matchedIPs list is not empty, print all of the items in the list
 if matchedIPs:
@@ -89,11 +93,22 @@ if md5:
 #If the md5 list is empty, print the string below
 if not md5:
     print "\nNo MD5s Found"
+
+#If matchDomain is not empty, print each item (domain) in the list on a new line. If empty, print No Domain Names Found    
 if matchDomain:
     print "\nPossible Domain Names Found:"
     for item in matchDomain:
         print item
 if not matchDomain:
     print "\nNo Domain Names Found"
+
+#If emailAddr is not empty, print each item (email address) in the list on a new line. If empty print message
+if emailAddr:
+    print "\nPossible Email Addresses Found:"
+    for item in emailAddr:
+        #Print only the email address instead of email, domain name
+        print item[0]
+if not emailAddr:
+    print "\nNo Email Addresses Found"
     
     
