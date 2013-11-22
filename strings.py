@@ -6,6 +6,7 @@ import sys
 import string
 import re
 from IPy import IP
+import tldextract
 
 #define input file as ifile
 ifile=''
@@ -37,10 +38,13 @@ def strings(filename, min=4):
 sl = list(strings(ifile))
 matchedIPs = [ ]
 privateIPs = [ ]
+extracted = [ ]
 
 #Define and compile regular expressions
 md5Regex = re.compile(r"([a-fA-F\d]{32})")
 ipRegex = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+domain = re.compile(r'[\w\-\.]+\.(?:com|org|biz|net|ru|info|es|in|biz|nl|cn)')
+
 #privateIPregex = re.compile("(^127\.0\.0\.1)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)")
 #Loop through each value in the list sl
 for x in sl:
@@ -49,6 +53,8 @@ for x in sl:
     md5 = re.findall(md5Regex, x)
     #Seach X for all matches to the IP regex and store in the list matchedIPs
     matchedIPs = re.findall(ipRegex, x)
+    #Extract domains from x
+    matchDomain = re.findall(domain, x) 
 
 #If the matchedIPs list is not empty, print all of the items in the list
 if matchedIPs:
@@ -83,7 +89,11 @@ if md5:
 #If the md5 list is empty, print the string below
 if not md5:
     print "\nNo MD5s Found"
-
-
+if matchDomain:
+    print "\nPossible Domain Names Found:"
+    for item in matchDomain:
+        print item
+if not matchDomain:
+    print "\nNo Domain Names Found"
     
     
