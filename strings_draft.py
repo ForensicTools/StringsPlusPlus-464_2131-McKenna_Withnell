@@ -85,63 +85,53 @@ for file in ifile:
 	print ("\nFile Name: %s" % fo.name)
 	print "------------------------------"
 
-#If the md5 list is not empty, print all the items in the list
-if md5:
-    #Print the header first then each item (MD5sum) in the list md5. Prints each one on a new line
-    print "\nPossible MD5s Found:"
-    for item in md5:
-        print item
-#If the md5 list is empty, print the string below
-if not md5:
-    print "\nNo MD5s Found"
+	#If the md5 list is not empty, print all the items in the list
+	if md5:
+	    #Print the header first then each item (MD5sum) in the list md5. Prints each one on a new line
+	    print "\nPossible MD5s Found:"
+	    for item in md5:
+	        print item
+	#If the md5 list is empty, print the string below
+	if not md5:
+	    print "\nNo MD5s Found"
 
-#If matchDomain is not empty, print each item (domain) in the list on a new line. If empty, print No Domain Names Found    
-if matchDomain:
-    print "\nPossible Domain Names Found:"
-    for item in matchDomain:
-        print item
-if not matchDomain:
-    print "\nNo Domain Names Found"
+	#If matchDomain is not empty, print each item (domain) in the list on a new line. If empty, print No Domain Names Found    
+	if matchDomain:
+	    print "\nPossible Domain Names Found:"
+	    for item in matchDomain:
+	        print item
+	if not matchDomain:
+	    print "\nNo Domain Names Found"
 
-#If emailAddr is not empty, print each item (email address) in the list on a new line. If empty print message
-if emailAddr:
-    print "\nPossible Email Addresses Found:"
-    for item in emailAddr:
-        #Print only the email address instead of email, domain name
-        print item[0]
-if not emailAddr:
-    print "\nNo Email Addresses Found"
-#If the matchedIPs list is not empty, print all of the items in the list
-if matchedIPs:
-    print "Possible IP Addresses Found:"
-    #Print out IP address results
-    for item in matchedIPs:
-        #Use the IP module to check IP address type (PRIVATE, PUBLIC or LOOPBACK)
-        ip = IP(item)
-        #If the IP is identified as a private IP address, append the IP to the privateIPs list
-        if ip.iptype() == 'PRIVATE':
-            privateIPs.append(item)
-        #If the IP is not a private IP address, print the address as part of the IP Address section
-        else:
-            print item
-#If the matchedIPs list is empty, print the string below
-if not matchedIPs:
-    print "No IP Addresses Found."
-#If any privateIP addresses were found, print them out under the Private IP Addresses header
-#Do we want to separate out the IP addresses like this, or do we want to just list them under one category and put (PRIVATE) next to each address?
-#If we did this we could even use iptype() to display the type (PUBLIC, PRIVATE or LOOPBACK) next to all IPs
-if privateIPs:
-    print "Private IP Addresses:"
-    for item in privateIPs:
-        print item
-
-#If the md5 list is not empty, print all the items in the list
-if md5:
-    #Print the header first then each item (MD5sum) in the list md5. Prints each one on a new line
-    print "\nPossible MD5s Found:"
-    for item in md5:
-        print item
-#If the md5 list is empty, print the string below
-if not md5:
-    print "\nNo MD5s Found"
+	#If emailAddr is not empty, print each item (email address) in the list on a new line. If empty print message
+	if emailAddr:
+	    print "\nPossible Email Addresses Found:"
+	    for item in emailAddr:
+	        #Print only the email address instead of email, domain name
+	        print item[0]
+	if not emailAddr:
+	    print "\nNo Email Addresses Found"
+	#If the matchedIPs list is not empty, print all of the items in the list
+	if matchedIPs:
+	    print "\nPossible IP Addresses Found:"
+	    #Print out IP address results
+	    for item in matchedIPs:
+	        #Use the IP module to check IP address type (PRIVATE, PUBLIC or LOOPBACK)
+	        ip = IP(item)
+	        #If the IP is identified as a private IP address, append the IP to the privateIPs list
+	        if ip.iptype() == 'PRIVATE':
+	            privateIPs.append(item)
+	        #If the IP is not a private IP address, print the address as part of the IP Address section
+	        else:
+	            print item
+	#If the matchedIPs list is empty, print the string below
+	if not matchedIPs:
+	    print "\nNo IP Addresses Found."
+	#If any privateIP addresses were found, print them out under the Private IP Addresses header
+	#Do we want to separate out the IP addresses like this, or do we want to just list them under one category and put (PRIVATE) next to each address?
+	#If we did this we could even use iptype() to display the type (PUBLIC, PRIVATE or LOOPBACK) next to all IPs
+	if privateIPs:
+	    print "Private IP Addresses:"
+	    for item in privateIPs:
+	        print item
 
