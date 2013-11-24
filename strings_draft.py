@@ -85,6 +85,7 @@ for file in ifile:
 	print ("\nFile Name: %s" % fo.name)
 	print "------------------------------"
 
+	md5 = sorted(set(md5))
 	#If the md5 list is not empty, print all the items in the list
 	if md5:
 	    #Print the header first then each item (MD5sum) in the list md5. Prints each one on a new line
@@ -95,6 +96,8 @@ for file in ifile:
 	if not md5:
 	    print "\nNo MD5s Found"
 
+
+	matchDomain = sorted(set(matchDomain))
 	#If matchDomain is not empty, print each item (domain) in the list on a new line. If empty, print No Domain Names Found    
 	if matchDomain:
 	    print "\nPossible Domain Names Found:"
@@ -103,6 +106,7 @@ for file in ifile:
 	if not matchDomain:
 	    print "\nNo Domain Names Found"
 
+	emailAddr = sorted(set(emailAddr))
 	#If emailAddr is not empty, print each item (email address) in the list on a new line. If empty print message
 	if emailAddr:
 	    print "\nPossible Email Addresses Found:"
@@ -111,6 +115,7 @@ for file in ifile:
 	        print item[0]
 	if not emailAddr:
 	    print "\nNo Email Addresses Found"
+	matchedIPs = sorted(set(matchedIPs))
 	#If the matchedIPs list is not empty, print all of the items in the list
 	if matchedIPs:
 	    print "\nPossible IP Addresses Found:"
