@@ -24,3 +24,6 @@ Claire McKenna and Ben Withnell, 2013
 
 #Options
 	-d - used to analyze full directory
+#Dependencies
+	tldextract
+	IPy
