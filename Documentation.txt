@@ -20,9 +20,7 @@ Claire McKenna and Ben Withnell, 2013
 	------------------------------------------
 
 #Usage
-	[To Be Determined]
+	stringspp.py [file or directory] [options]
 
 #Options
-	Custom RegEx
-	Show only particular output
-	
+	-d - used to analyze full directory
